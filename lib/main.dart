@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import './Screens/HomePage.dart';
 
 void main() {
-  print("heellooo");
+  runApp(
+    MaterialApp(
+      home: HomePage(),
+    ),
+  );
 }
