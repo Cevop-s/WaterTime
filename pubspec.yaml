@@ -47,6 +47,7 @@ dev_dependencies:
   wave: ^0.2.0
   percent_indicator: ^4.0.0
   google_fonts: ^2.3.1
+  flutter_local_notifications: ^9.4.0
   
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
