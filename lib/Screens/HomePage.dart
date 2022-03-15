@@ -3,6 +3,10 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+late BannerAd _bannerAd;
+bool _isBannerAdReady = false;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,7 +16,40 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double waterLevel = 400;
+  @override
+  void initState() {
+    MobileAds.instance.initialize();
+    _bannerAd = BannerAd(
+      adUnitId: "ca-app-pub-3940256099942544/6300978111",
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
+          _isBannerAdReady = false;
+          ad.dispose();
+        },
+      ),
+    );
+
+    _bannerAd.load();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: Dispose a BannerAd object
+    _bannerAd.dispose();
+
+    super.dispose();
+  }
+
+  double waterLevel = 200;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,8 +144,9 @@ class _HomePageState extends State<HomePage> {
                         : Color.fromRGBO(30, 108, 140, 1),
                   ],
                 ),
+                animationDuration: 650,
                 animation: true,
-                percent: 1,
+                percent: .8,
                 center: new Text(
                   "100%",
                   style: new TextStyle(
@@ -120,7 +158,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Positioned.fill(
-              top: 140,
+              top: MediaQuery.of(context).size.height * .1,
               child: Align(
                 alignment: Alignment.topCenter,
                 //dragtarget
@@ -164,6 +202,19 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+            ),
+            Positioned.fill(
+              top: 30,
+              child: _isBannerAdReady
+                  ? Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        width: _bannerAd.size.width.toDouble(),
+                        height: _bannerAd.size.height.toDouble(),
+                        child: AdWidget(ad: _bannerAd),
+                      ),
+                    )
+                  : Container(),
             )
           ],
         ),
