@@ -5,6 +5,8 @@ import 'package:wave/wave.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../api/notification.dart';
+
 late BannerAd _bannerAd;
 bool _isBannerAdReady = false;
 
@@ -16,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  NotificationApi noti = new NotificationApi();
+
   @override
   void initState() {
     MobileAds.instance.initialize();
@@ -54,6 +58,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => noti.sendNotification(
+            body: "Hello man how are you",
+            title: "Siros",
+            schedualeDate: DateTime.now().add(Duration(seconds: 10))),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
