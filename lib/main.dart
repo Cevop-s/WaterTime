@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './Screens/HomePage.dart';
+import 'package:water_time_mobile_app/Screens/app.dart';
+import 'Screens/MainScreens/HomePage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,7 +11,7 @@ void main() {
     runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: App(),
       ),
     );
   });
