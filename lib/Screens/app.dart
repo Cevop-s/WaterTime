@@ -52,14 +52,14 @@ class AppState extends State<App> {
           // Symetric Padding
 
           AppBar(
-              elevation: 20,
+              elevation: 0,
               title: const Text(
                 'Water',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-
+              centerTitle: true,
               backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent,
+              //shadowColor: Colors.transparent,
               foregroundColor: Color(0xFF0B6E95), //#0B6E95
             )
           : null,
