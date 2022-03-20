@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:water_time_mobile_app/Screens/app.dart';
-import 'Screens/MainScreens/HomePage.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_) {
     runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: App(),
+        home: EasyLocalization(
+          saveLocale: true,
+          path: 'assets/Translation',
+          supportedLocales: [
+            Locale('en', 'US'),
+            Locale('ar'),
+            Locale('kr'),
+          ],
+          child: App(),
+        ),
       ),
     );
   });
