@@ -4,7 +4,7 @@ import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
+import '../../Constants/constants.dart';
 import '../../api/notification.dart';
 
 late BannerAd _bannerAd;
@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                               fontSize: mediaQuery.size.width * .09),
                     ),
                     Text(
-                      "900 ml Remaining",
+                      "900 ml $Remaining",
                       style: waterLevel > 180
                           ? GoogleFonts.roboto(
                               fontSize: mediaQuery.size.width * .027,

@@ -156,7 +156,7 @@ class _ProgressPageState extends State<ProgressPage> {
                   },
                   itemScrollController: itemScrollController,
                   itemPositionsListener: itemPositionsListener,
-                  initialScrollIndex: date.SelectedDay,
+                  initialScrollIndex: date.SelectedDay - 1,
                 ),
               ),
               SizedBox(

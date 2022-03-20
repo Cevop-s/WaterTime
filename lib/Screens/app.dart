@@ -7,6 +7,7 @@ import 'package:water_time_mobile_app/Screens/MainScreens/ProgressScreen.dart';
 import 'package:water_time_mobile_app/Screens/MainScreens/SettingScreen.dart';
 //import 'package:water_time_mobile_app/screens/tab_item.dart';
 //import 'package:water_time_mobile_app/screens/tab_navigator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class App extends StatefulWidget {
   @override
@@ -53,8 +54,8 @@ class AppState extends State<App> {
 
           AppBar(
               elevation: 0,
-              title: const Text(
-                'Water',
+              title: Text(
+                'Water'.tr(),
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
@@ -109,17 +110,17 @@ class AppState extends State<App> {
               tabs: [
                 GButton(
                   icon: Icons.water_drop_outlined,
-                  text: 'Home',
+                  text: 'Home'.tr(),
 
                   //text: 'Hs',
                 ),
                 GButton(
                   icon: Icons.local_drink_rounded,
-                  text: 'Progress',
+                  text: 'Progress'.tr(),
                 ),
                 GButton(
                   icon: Icons.settings,
-                  text: 'Settings',
+                  text: 'Settings'.tr(),
                 ),
               ],
               selectedIndex: _selectedIndex,
