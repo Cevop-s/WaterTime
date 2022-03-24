@@ -8,13 +8,24 @@ import 'package:google_fonts/google_fonts.dart';
 import "package:water_time_mobile_app/Constants/constants.dart";
 
 class settingScreen extends StatefulWidget {
-  const settingScreen({Key? key}) : super(key: key);
+  settingScreen({
+    Key? key,
+  }) : super(key: key);
+
+  settingScreen.changeValue({
+    this.value = false,
+  });
+
+  late bool value = true;
 
   @override
   State<settingScreen> createState() => _settingScreenState();
 }
 
 class _settingScreenState extends State<settingScreen> {
+  Alignment switchControlAlignment = Alignment.centerLeft;
+  //bool toggle = true;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -212,7 +223,93 @@ class _settingScreenState extends State<settingScreen> {
                           height: 75,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [],
+                            children: [
+                              Container(
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      InkWell(
+                                        child: AnimatedContainer(
+                                          duration:
+                                              const Duration(milliseconds: 400),
+                                          curve: Curves.decelerate,
+                                          width: 45,
+                                          height: 25,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0),
+                                              color: widget.value
+                                                  ? Colors.greenAccent
+                                                  : Colors.redAccent),
+                                          child: AnimatedAlign(
+                                              duration: const Duration(
+                                                  milliseconds: 400),
+                                              alignment: widget.value
+                                                  ? Alignment.centerRight
+                                                  : Alignment.centerLeft,
+                                              curve: Curves.decelerate,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: Container(
+                                                  width: 15,
+                                                  height: 15,
+                                                  decoration: BoxDecoration(
+                                                      color: Color(0xFFFFFFFF),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100.0)),
+                                                ),
+                                              )),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            widget.value = !widget.value;
+                                          });
+                                        },
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(left: 15),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "08:30 AM",
+                                                  overflow: TextOverflow.fade,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontFamily: "roboto",
+                                                      fontSize: 22),
+                                                ),
+                                                Text("Every Monday",
+                                                    overflow: TextOverflow.fade,
+                                                    style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontFamily: "roboto",
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 10)),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                              ),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.more_horiz,
+                                  ))
+                            ],
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
