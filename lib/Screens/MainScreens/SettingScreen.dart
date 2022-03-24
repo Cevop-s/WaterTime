@@ -18,6 +18,7 @@ class _settingScreenState extends State<settingScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
@@ -59,10 +60,29 @@ class _settingScreenState extends State<settingScreen> {
                               onChanged: (value) {
                                 setState(() {
                                   languageValue = value;
-
-                                  EasyLocalization.of(context)!
-                                      .setLocale(const Locale("ar"));
                                 });
+
+                                if (value == "English") {
+                                  setState(() {
+                                    EasyLocalization.of(context)!
+                                        .setLocale(const Locale('en', 'US'));
+                                  });
+                                } else if (value == "العربي") {
+                                  setState(() {
+                                    EasyLocalization.of(context)!
+                                        .setLocale(const Locale('ar', 'IQ'));
+                                  });
+                                } else if (value == "کوردی") {
+                                  setState(() {
+                                    EasyLocalization.of(context)!
+                                        .setLocale(const Locale('ar', 'EG'));
+                                  });
+                                } else {
+                                  setState(() {
+                                    EasyLocalization.of(context)!
+                                        .setLocale(const Locale('en', 'US'));
+                                  });
+                                }
                               },
                             ),
                           ),
@@ -90,7 +110,7 @@ class _settingScreenState extends State<settingScreen> {
                         tiles: <SettingsTile>[
                           SettingsTile(
                             title: Text(
-                              "Age",
+                              "Age".tr(),
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

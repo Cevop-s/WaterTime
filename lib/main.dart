@@ -18,8 +18,8 @@ void main() async {
           path: 'assets/Translation',
           supportedLocales: [
             Locale('en', 'US'),
-            Locale('ar'),
-            Locale('kr'),
+            Locale('ar', 'IQ'),
+            Locale('ar', 'EG'),
           ],
           child: App(),
         ),
