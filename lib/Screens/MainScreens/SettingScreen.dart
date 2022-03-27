@@ -1,5 +1,4 @@
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -7,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import "package:water_time_mobile_app/Constants/constants.dart";
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 
 // ignore: must_be_immutable
 class settingScreen extends StatefulWidget {
@@ -28,6 +28,14 @@ class _settingScreenState extends State<settingScreen> {
   Alignment switchControlAlignment = Alignment.centerLeft;
 
   int genderint = 0;
+  TimeOfDay _time = TimeOfDay.now().replacing(hour: 11, minute: 30);
+  bool iosStyle = true;
+
+  void onTimeChanged(TimeOfDay newTime) {
+    setState(() {
+      _time = newTime;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -248,7 +256,9 @@ class _settingScreenState extends State<settingScreen> {
                               Icons.add,
                               size: 25,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              openDialog();
+                            },
                           ),
                         ],
                       ),
@@ -369,4 +379,66 @@ class _settingScreenState extends State<settingScreen> {
       ),
     );
   }
+
+  Future openDialog() => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+          backgroundColor: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Container(
+            width: 300,
+            height: 400,
+            child: Padding(
+              padding: EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 18,
+                    child: ClipRRect(
+                      child:
+                          Image.asset('assets/reminder.png', fit: BoxFit.fill),
+                    ),
+                    backgroundColor: Colors.transparent,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Set Reminder",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Row(children: [
+                      TextButton.icon(
+                        icon: Text(
+                          "Set A time",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              color: Color(0xFF0C6E95)),
+                        ),
+                        label: Icon(Icons.arrow_forward_ios),
+                        onPressed: () {
+                          Navigator.of(context).push(showPicker(
+                            okText: "Set",
+                            context: context,
+                            value: _time,
+                            onChange: onTimeChanged,
+                          ));
+                        },
+                      ),
+                    ]),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
 }
