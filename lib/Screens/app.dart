@@ -44,93 +44,105 @@ class AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      extendBody: true,
-      appBar: _selectedIndex == 0
-          ?
+    return MaterialApp(
+      home: EasyLocalization(
+        saveLocale: true,
+        path: 'assets/Translation',
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('ar', 'IQ'),
+          Locale('ar', 'EG'),
+        ],
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          extendBody: true,
+          appBar: _selectedIndex == 0
+              ?
 
-          // Symetric Padding
+              // Symetric Padding
 
-          AppBar(
-              elevation: 0,
-              title: Text(
-                'Water'.tr(),
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              AppBar(
+                  elevation: 0,
+                  title: Text(
+                    'Water'.tr(),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  centerTitle: true,
+                  backgroundColor: Colors.transparent,
+                  //shadowColor: Colors.transparent,
+                  foregroundColor: Color(0xFF0B6E95), //#0B6E95
+                )
+              : null,
+          body: _widgetOptions.elementAt(_selectedIndex),
+          // Stack(children: <Widget>[
+          //   _buildOffstageNavigator(TabItem.home),
+          //   _buildOffstageNavigator(TabItem.progress),
+          //   _buildOffstageNavigator(TabItem.settings),
+          // ]),
+          bottomNavigationBar:
+
+              // FloatingNavbar(
+              //   onTap: (int val) => setState(() => _selectedIndex = val),
+              //   currentIndex: _selectedIndex,
+              //   items: [
+              //     FloatingNavbarItem(icon: Icons.home, title: 'Home'),
+              //     FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
+              //     FloatingNavbarItem(icon: Icons.chat_bubble_outline, title: 'Chats'),
+              //     FloatingNavbarItem(icon: Icons.settings, title: 'Settings'),
+              //   ],
+              // )
+
+              // );
+
+              Container(
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+            ),
+            child: SafeArea(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50.0, vertical: 25),
+                child: GNav(
+                  //rippleColor: Colors.grey[300]!,
+                  rippleColor: Colors.transparent,
+                  hoverColor: Colors.grey[100]!,
+
+                  backgroundColor: Colors.transparent,
+                  // gap: 0.00000000000000000000001,
+
+                  activeColor: Colors.white,
+                  iconSize: 25,
+                  //padding: EdgeInsets.symmetric(horizontal: 24, vertical: 15),
+                  duration: Duration(milliseconds: 400),
+                  tabBackgroundColor: Color(0xFF1A6483), //1A6483 //#1A6483
+                  color: Colors.black,
+
+                  tabs: [
+                    GButton(
+                      icon: Icons.water_drop_outlined,
+                      text: 'Home'.tr(),
+
+                      //text: 'Hs',
+                    ),
+                    GButton(
+                      icon: Icons.local_drink_rounded,
+                      text: 'Progress'.tr(),
+                    ),
+                    GButton(
+                      icon: Icons.settings,
+                      text: 'Settings'.tr(),
+                    ),
+                  ],
+                  selectedIndex: _selectedIndex,
+
+                  onTabChange: (index) {
+                    setState(() {
+                      _selectedIndex = index;
+                      //TabItem.values[index];
+                    });
+                  },
+                ),
               ),
-              centerTitle: true,
-              backgroundColor: Colors.transparent,
-              //shadowColor: Colors.transparent,
-              foregroundColor: Color(0xFF0B6E95), //#0B6E95
-            )
-          : null,
-      body: _widgetOptions.elementAt(_selectedIndex),
-      // Stack(children: <Widget>[
-      //   _buildOffstageNavigator(TabItem.home),
-      //   _buildOffstageNavigator(TabItem.progress),
-      //   _buildOffstageNavigator(TabItem.settings),
-      // ]),
-      bottomNavigationBar:
-
-          // FloatingNavbar(
-          //   onTap: (int val) => setState(() => _selectedIndex = val),
-          //   currentIndex: _selectedIndex,
-          //   items: [
-          //     FloatingNavbarItem(icon: Icons.home, title: 'Home'),
-          //     FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-          //     FloatingNavbarItem(icon: Icons.chat_bubble_outline, title: 'Chats'),
-          //     FloatingNavbarItem(icon: Icons.settings, title: 'Settings'),
-          //   ],
-          // )
-
-          // );
-
-          Container(
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 25),
-            child: GNav(
-              //rippleColor: Colors.grey[300]!,
-              rippleColor: Colors.transparent,
-              hoverColor: Colors.grey[100]!,
-
-              backgroundColor: Colors.transparent,
-              // gap: 0.00000000000000000000001,
-
-              activeColor: Colors.white,
-              iconSize: 25,
-              //padding: EdgeInsets.symmetric(horizontal: 24, vertical: 15),
-              duration: Duration(milliseconds: 400),
-              tabBackgroundColor: Color(0xFF1A6483), //1A6483 //#1A6483
-              color: Colors.black,
-
-              tabs: [
-                GButton(
-                  icon: Icons.water_drop_outlined,
-                  text: 'Home'.tr(),
-
-                  //text: 'Hs',
-                ),
-                GButton(
-                  icon: Icons.local_drink_rounded,
-                  text: 'Progress'.tr(),
-                ),
-                GButton(
-                  icon: Icons.settings,
-                  text: 'Settings'.tr(),
-                ),
-              ],
-              selectedIndex: _selectedIndex,
-
-              onTabChange: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                  //TabItem.values[index];
-                });
-              },
             ),
           ),
         ),
