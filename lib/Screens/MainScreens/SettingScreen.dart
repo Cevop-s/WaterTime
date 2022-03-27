@@ -6,7 +6,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import "package:water_time_mobile_app/Constants/constants.dart";
+import 'package:toggle_switch/toggle_switch.dart';
 
+// ignore: must_be_immutable
 class settingScreen extends StatefulWidget {
   settingScreen({
     Key? key,
@@ -24,7 +26,8 @@ class settingScreen extends StatefulWidget {
 
 class _settingScreenState extends State<settingScreen> {
   Alignment switchControlAlignment = Alignment.centerLeft;
-  //bool toggle = true;
+
+  int genderint = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,8 @@ class _settingScreenState extends State<settingScreen> {
       localizationsDelegates: context.localizationDelegates,
       home: Scaffold(
         body: SafeArea(
-          child: CupertinoScrollbar(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -198,18 +202,31 @@ class _settingScreenState extends State<settingScreen> {
                                   color: Color(0xFF0C6E95)),
                             ),
                             leading: FaIcon(FontAwesomeIcons.person, size: 20),
-                            trailing: Center(
-                              child: CustomDropdownButton2(
-                                icon: FaIcon(FontAwesomeIcons.chevronDown),
-                                hint: 'Select Weight'.tr(),
-                                dropdownItems: gender,
-                                value: genderValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    genderValue = value;
-                                  });
-                                },
-                              ),
+                            trailing: ToggleSwitch(
+                              minHeight: 30,
+                              minWidth: 80.0,
+                              fontSize: 10,
+                              iconSize: 15,
+                              initialLabelIndex: genderint,
+                              cornerRadius: 15.0,
+                              activeFgColor: Colors.white,
+                              inactiveBgColor: Colors.grey,
+                              inactiveFgColor: Colors.white,
+                              totalSwitches: 2,
+                              labels: ['Male', 'Female'],
+                              icons: [
+                                FontAwesomeIcons.person,
+                                FontAwesomeIcons.personDress
+                              ],
+                              activeBgColors: [
+                                [Color(0xFF0C6E95)],
+                                [Color(0xFF0C6E95)]
+                              ],
+                              onToggle: (index) {
+                                genderint = index!;
+                                genderValue = gender[genderint];
+                                print(genderValue);
+                              },
                             ),
                           ),
                         ]),
@@ -259,7 +276,7 @@ class _settingScreenState extends State<settingScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(50.0),
                                               color: widget.value
-                                                  ? Colors.greenAccent
+                                                  ? Color(0xFF0C6E95)
                                                   : Colors.redAccent),
                                           child: AnimatedAlign(
                                               duration: const Duration(
