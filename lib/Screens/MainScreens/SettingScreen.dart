@@ -30,6 +30,8 @@ class settingScreen extends StatefulWidget {
 class _settingScreenState extends State<settingScreen> {
   Alignment switchControlAlignment = Alignment.centerLeft;
 
+  bool isChecked = false;
+
   int genderint = 0;
   TimeOfDay _time = TimeOfDay.now().replacing(hour: 11, minute: 30);
   bool iosStyle = true;
@@ -227,11 +229,13 @@ class _settingScreenState extends State<settingScreen> {
                               minWidth: 80.0,
                               fontSize: 10,
                               iconSize: 15,
+                              animate: true,
+                              animationDuration: 300,
                               initialLabelIndex: genderint,
                               cornerRadius: 15.0,
                               activeFgColor: Colors.white,
-                              inactiveBgColor: Colors.grey,
-                              inactiveFgColor: Colors.white,
+                              inactiveBgColor: Colors.grey.shade300,
+                              inactiveFgColor: Colors.black.withOpacity(0.6),
                               totalSwitches: 2,
                               labels: ['Male', 'Female'],
                               icons: [
@@ -261,6 +265,7 @@ class _settingScreenState extends State<settingScreen> {
                                   color: Color(0xFF7A7A7A))),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF0C6E95),
                               shape: const CircleBorder(),
                               padding: const EdgeInsets.all(6),
                             ),
@@ -276,112 +281,123 @@ class _settingScreenState extends State<settingScreen> {
                       ),
                       tiles: <SettingsTile>[
                         SettingsTile(
-                            title: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          width: MediaQuery.of(context).size.width,
-                          height: 75,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      InkWell(
-                                        child: AnimatedContainer(
-                                          duration:
-                                              const Duration(milliseconds: 400),
-                                          curve: Curves.decelerate,
-                                          width: 45,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(50.0),
-                                              color: widget.value
-                                                  ? Color(0xFF0C6E95)
-                                                  : Colors.redAccent),
-                                          child: AnimatedAlign(
-                                              duration: const Duration(
-                                                  milliseconds: 400),
-                                              alignment: widget.value
-                                                  ? Alignment.centerRight
-                                                  : Alignment.centerLeft,
-                                              curve: Curves.decelerate,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                child: Container(
-                                                  width: 15,
-                                                  height: 15,
-                                                  decoration: BoxDecoration(
-                                                      color: Color(0xFFFFFFFF),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              100.0)),
-                                                ),
-                                              )),
+                            title: Column(children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            width: MediaQuery.of(context).size.width,
+                            height: 75,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        InkWell(
+                                          child: AnimatedContainer(
+                                            duration: const Duration(
+                                                milliseconds: 400),
+                                            curve: Curves.decelerate,
+                                            width: 45,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                                color: widget.value
+                                                    ? Color(0xFF0C6E95)
+                                                    : Colors.redAccent),
+                                            child: AnimatedAlign(
+                                                duration: const Duration(
+                                                    milliseconds: 400),
+                                                alignment: widget.value
+                                                    ? Alignment.centerRight
+                                                    : Alignment.centerLeft,
+                                                curve: Curves.decelerate,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5.0),
+                                                  child: Container(
+                                                    width: 15,
+                                                    height: 15,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xFFFFFFFF),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    100.0)),
+                                                  ),
+                                                )),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              widget.value = !widget.value;
+                                            });
+                                          },
                                         ),
-                                        onTap: () {
-                                          setState(() {
-                                            widget.value = !widget.value;
-                                          });
-                                        },
-                                      ),
-                                      Container(
-                                        height: 50,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 15),
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "08:30 AM",
-                                                  overflow: TextOverflow.fade,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontFamily: "roboto",
-                                                      fontSize: 22),
-                                                ),
-                                                Text("Every Monday",
+                                        Container(
+                                          height: 50,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(left: 15),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "08:30 AM",
                                                     overflow: TextOverflow.fade,
                                                     style: TextStyle(
-                                                        color: Colors.grey,
-                                                        fontFamily: "roboto",
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 10)),
-                                              ],
+                                                        fontFamily: "roboto",
+                                                        fontSize: 22),
+                                                  ),
+                                                  Text("Every Monday",
+                                                      overflow:
+                                                          TextOverflow.fade,
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontFamily: "roboto",
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 10)),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ]),
-                              ),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.more_horiz,
-                                  ))
-                            ],
+                                      ]),
+                                ),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.more_horiz,
+                                      color: Color(0xFF0C6E95),
+                                    )),
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color:
+                                      Color.fromARGB(255, 206, 206, 206), //New
+                                  blurRadius: 10.0,
+                                  offset: Offset(0, 1),
+                                ),
+                              ],
+                            ),
                           ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromARGB(255, 206, 206, 206), //New
-                                blurRadius: 10.0,
-                                offset: Offset(0, 1),
-                              )
-                            ],
+                          SizedBox(
+                            height: 20,
                           ),
-                        ))
+                        ]))
                       ],
                     ),
                   ]),
@@ -399,10 +415,10 @@ class _settingScreenState extends State<settingScreen> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Container(
-            width: 300,
-            height: 400,
+            width: 200,
+            height: 250,
             child: Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: EdgeInsets.all(15.0),
               child: Column(
                 children: [
                   CircleAvatar(
@@ -422,32 +438,264 @@ class _settingScreenState extends State<settingScreen> {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(children: [
-                      TextButton.icon(
-                        icon: Text(
-                          "Set A time",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                              color: Color(0xFF0C6E95)),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(showPicker(
+                        okText: "Set",
+                        context: context,
+                        value: _time,
+                        onChange: onTimeChanged,
+                      ));
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Set a time",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFF0C6E95)),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Time Set",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey),
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 18,
+                                  color: Colors.grey,
+                                )
+                              ],
+                            ),
+                          ]),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 17,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      openRepeat();
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Set a Repeat",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFF0C6E95)),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Time Set",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey),
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 18,
+                                  color: Colors.grey,
+                                )
+                              ],
+                            ),
+                          ]),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(horizontal: 35),
+                                primary: Colors.redAccent,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20))),
+                            child: Text("Cancle"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
                         ),
-                        label: Icon(Icons.arrow_forward_ios),
-                        onPressed: () {
-                          Navigator.of(context).push(showPicker(
-                            okText: "Set",
-                            context: context,
-                            value: _time,
-                            onChange: onTimeChanged,
-                          ));
-                        },
-                      ),
-                    ]),
-                  )
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF0C6E95),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                          child: Text("Set Reminder"),
+                          onPressed: () {},
+                        ),
+                      ]),
                 ],
+              ),
+            ),
+          ),
+        ),
+      );
+  Future openRepeat() => showDialog(
+        context: context,
+        builder: (context) => StatefulBuilder(
+          builder: (context, setState) => Dialog(
+            backgroundColor: Colors.white,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Container(
+              width: 200,
+              height: 300,
+              child: Padding(
+                padding: EdgeInsets.all(15),
+                child: Column(children: [
+                  CheckboxListTile(
+                    title: Text("Every Day"),
+                    checkColor: Colors.white,
+                    value: isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isChecked = !isChecked;
+                      });
+                    },
+                  ),
+                  Container(
+                    width: 220,
+                    height: 3,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade400,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  Container(
+                    height: 160,
+                    width: 250,
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 40,
+                              child: CheckboxListTile(
+                                title: Text("Every Saturday"),
+                                checkColor: Colors.white,
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isChecked = !isChecked;
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                              child: CheckboxListTile(
+                                title: Text("Every Sunday"),
+                                checkColor: Colors.white,
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isChecked = !isChecked;
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                              child: CheckboxListTile(
+                                title: Text("Every Monday"),
+                                checkColor: Colors.white,
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isChecked = !isChecked;
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                              child: CheckboxListTile(
+                                title: Text("Every Tuesday"),
+                                checkColor: Colors.white,
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isChecked = !isChecked;
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                              child: CheckboxListTile(
+                                title: Text("Every Wednesday"),
+                                checkColor: Colors.white,
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isChecked = !isChecked;
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                              child: CheckboxListTile(
+                                title: Text("Every Thursday"),
+                                checkColor: Colors.white,
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isChecked = !isChecked;
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                              child: CheckboxListTile(
+                                title: Text("Every Friday"),
+                                checkColor: Colors.white,
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isChecked = !isChecked;
+                                  });
+                                },
+                              ),
+                            )
+                          ]),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2,
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Cancle")),
+                    TextButton(onPressed: () {}, child: Text("Set")),
+                  ])
+                ]),
               ),
             ),
           ),
