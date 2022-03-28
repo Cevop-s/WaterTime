@@ -7,6 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import "package:water_time_mobile_app/Constants/constants.dart";
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:provider/provider.dart';
+import 'package:water_time_mobile_app/State%20Manager/AppManager.dart';
 
 // ignore: must_be_immutable
 class settingScreen extends StatefulWidget {
@@ -39,9 +42,9 @@ class _settingScreenState extends State<settingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Provider.of<ThemeManager>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       home: Scaffold(
@@ -88,17 +91,26 @@ class _settingScreenState extends State<settingScreen> {
                                 if (value == "English") {
                                   setState(() {
                                     EasyLocalization.of(context)!
-                                        .setLocale(const Locale('en', 'US'));
+                                        .setLocale(const Locale('en', 'US'))
+                                        .then(
+                                          (_) => {Phoenix.rebirth(context)},
+                                        );
                                   });
                                 } else if (value == "العربي") {
                                   setState(() {
                                     EasyLocalization.of(context)!
-                                        .setLocale(const Locale('ar', 'IQ'));
+                                        .setLocale(const Locale('ar', 'IQ'))
+                                        .then(
+                                          (_) => {Phoenix.rebirth(context)},
+                                        );
                                   });
                                 } else if (value == "کوردی") {
                                   setState(() {
                                     EasyLocalization.of(context)!
-                                        .setLocale(const Locale('ar', 'EG'));
+                                        .setLocale(const Locale('ar', 'EG'))
+                                        .then(
+                                          (_) => {Phoenix.rebirth(context)},
+                                        );
                                   });
                                 } else {
                                   setState(() {
@@ -112,7 +124,7 @@ class _settingScreenState extends State<settingScreen> {
                         ),
                         SettingsTile.switchTile(
                           onToggle: (value) {},
-                          initialValue: false,
+                          initialValue: theme.isDark,
                           leading: Icon(Icons.sunny, size: 20),
                           title: Text(
                             'Change the theme'.tr(),

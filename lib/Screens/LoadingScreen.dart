@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'app.dart';
@@ -26,7 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Center(
         child: TextLiquidFill(
           loadDuration: Duration(seconds: 4),

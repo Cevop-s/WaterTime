@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             title: "Siros",
             schedualeDate: DateTime.now().add(Duration(seconds: 10))),
       ),
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: Container(
         height: mediaQuery.size.height,
         width: mediaQuery.size.width,
