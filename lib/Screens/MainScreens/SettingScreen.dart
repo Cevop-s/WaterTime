@@ -33,8 +33,10 @@ class _settingScreenState extends State<settingScreen> {
   bool isChecked = false;
 
   int genderint = 0;
-  TimeOfDay _time = TimeOfDay.now().replacing(hour: 11, minute: 30);
-  bool iosStyle = true;
+  TimeOfDay _time = TimeOfDay.now();
+
+  DateTime tim = DateTime.now();
+  String formattedDate = "None";
 
   void onTimeChanged(TimeOfDay newTime) {
     setState(() {
@@ -409,147 +411,156 @@ class _settingScreenState extends State<settingScreen> {
   }
 
   Future openDialog() => showDialog(
-        context: context,
-        builder: (context) => Dialog(
-          backgroundColor: Colors.white,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Container(
-            width: 200,
-            height: 250,
-            child: Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 18,
-                    child: ClipRRect(
-                      child:
-                          Image.asset('assets/reminder.png', fit: BoxFit.fill),
-                    ),
-                    backgroundColor: Colors.transparent,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Set Reminder",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(showPicker(
-                        okText: "Set",
-                        context: context,
-                        value: _time,
-                        onChange: onTimeChanged,
-                      ));
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Set a time",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Color(0xFF0C6E95)),
-                            ),
-                            Row(
+      context: context,
+      builder: (context) => StatefulBuilder(
+            builder: (context, setState) => Dialog(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: Container(
+                width: 200,
+                height: 250,
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 18,
+                        child: ClipRRect(
+                          child: Image.asset('assets/reminder.png',
+                              fit: BoxFit.fill),
+                        ),
+                        backgroundColor: Colors.transparent,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Set Reminder",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(showPicker(
+                              okText: "Set",
+                              context: context,
+                              value: _time,
+                              onChange: onTimeChanged,
+                              onChangeDateTime: (value) {
+                                setState(() {
+                                  tim = value;
+                                  formattedDate = DateFormat.jm().format(tim);
+                                });
+                              }));
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Time Set",
+                                  "Set a time",
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.grey),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Color(0xFF0C6E95)),
                                 ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 18,
-                                  color: Colors.grey,
-                                )
-                              ],
-                            ),
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 17,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      openRepeat();
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Set a Repeat",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Color(0xFF0C6E95)),
-                            ),
-                            Row(
+                                Row(
+                                  children: [
+                                    Text(
+                                      formattedDate,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.grey),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 18,
+                                      color: Colors.grey,
+                                    )
+                                  ],
+                                ),
+                              ]),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 17,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          openRepeat();
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Time Set",
+                                  "Set a Repeat",
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.grey),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Color(0xFF0C6E95)),
                                 ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 18,
-                                  color: Colors.grey,
-                                )
-                              ],
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Time Set",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.grey),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 18,
+                                      color: Colors.grey,
+                                    )
+                                  ],
+                                ),
+                              ]),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 35),
+                                    primary: Colors.redAccent,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20))),
+                                child: Text("Cancle"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Color(0xFF0C6E95),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20))),
+                              child: Text("Set Reminder"),
+                              onPressed: () {},
                             ),
                           ]),
-                    ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.symmetric(horizontal: 35),
-                                primary: Colors.redAccent,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20))),
-                            child: Text("Cancle"),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: Color(0xFF0C6E95),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20))),
-                          child: Text("Set Reminder"),
-                          onPressed: () {},
-                        ),
-                      ]),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      );
+          ));
   Future openRepeat() => showDialog(
         context: context,
         builder: (context) => StatefulBuilder(
