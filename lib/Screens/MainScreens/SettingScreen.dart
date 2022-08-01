@@ -46,7 +46,7 @@ class _settingScreenState extends State<settingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Provider.of<ThemeManager>(context);
+    var theme = Provider.of<ThemeManager>(context, listen: true);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       supportedLocales: context.supportedLocales,
@@ -59,8 +59,10 @@ class _settingScreenState extends State<settingScreen> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: SettingsList(
-                  lightTheme:
-                      SettingsThemeData(settingsListBackground: Colors.white),
+                  lightTheme: SettingsThemeData(
+                      settingsListBackground: theme.thememode == ThemeMode.dark
+                          ? Colors.grey[900]
+                          : Colors.white),
                   sections: [
                     SettingsSection(
                       title: Text("App Setting".tr(),
@@ -128,23 +130,14 @@ class _settingScreenState extends State<settingScreen> {
                         ),
                         SettingsTile.switchTile(
                           onToggle: (value) {
-                            if (value == true) {
-                              setState(() {
-                                theme.thememode = ThemeMode.dark;
-                              });
-
+                            print(value);
+                            setState(() {
+                              theme.toggleTheme(value);
                               print(theme.thememode);
-                            } else {
-                              setState(() {
-                                theme.thememode = ThemeMode.light;
-                              });
-
-                              print(theme.thememode);
-                            }
+                            });
                           },
                           initialValue:
-                              theme.thememode == ThemeMode.light ? false : true,
-                          leading: Icon(Icons.sunny, size: 20),
+                              theme.thememode == ThemeMode.dark ? true : false,
                           title: Text(
                             'Change the theme'.tr(),
                             style: TextStyle(
