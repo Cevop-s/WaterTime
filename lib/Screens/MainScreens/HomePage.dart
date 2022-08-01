@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Positioned(
-              bottom: mediaQuery.size.height * .27,
+              bottom: mediaQuery.size.height * .23,
               right: 0,
               left: 0,
               child: Container(
@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Positioned.fill(
               child: CircularPercentIndicator(
-                radius: mediaQuery.size.width * .17,
+                radius: mediaQuery.size.height * .1,
                 lineWidth: 7.0,
                 backgroundColor: Colors.white,
                 rotateLinearGradient: true,
