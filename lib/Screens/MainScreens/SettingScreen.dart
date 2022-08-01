@@ -127,8 +127,23 @@ class _settingScreenState extends State<settingScreen> {
                           ),
                         ),
                         SettingsTile.switchTile(
-                          onToggle: (value) {},
-                          initialValue: theme.isDark,
+                          onToggle: (value) {
+                            if (value == true) {
+                              setState(() {
+                                theme.thememode = ThemeMode.dark;
+                              });
+
+                              print(theme.thememode);
+                            } else {
+                              setState(() {
+                                theme.thememode = ThemeMode.light;
+                              });
+
+                              print(theme.thememode);
+                            }
+                          },
+                          initialValue:
+                              theme.thememode == ThemeMode.light ? false : true,
                           leading: Icon(Icons.sunny, size: 20),
                           title: Text(
                             'Change the theme'.tr(),
